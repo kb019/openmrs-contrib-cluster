@@ -45,9 +45,18 @@ mariadb:
       enabled: true
       size: 8Gi
 
+infinispan:
+  jgroups_cfg: default-configs/default-jgroups-kubernetes.xml
+  enabled: true
+  deploy:
+    nameOverride: ""
+    clusterDomain: cluster.local
+    replicas: 2
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: "backend" # Overwrite for now until gateway can be configured
+defaultOmrsServerOpts: "-Dfile.encoding=UTF-8 -server -Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Djava.awt.headlesslib=true"
 
 persistence:
   enabled: true

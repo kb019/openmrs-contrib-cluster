@@ -100,8 +100,13 @@ Prepend with the name of the service: `openmrs-backend`, `openmrs-frontend`, `op
 | `openmrs-backend.galera.db.name`                             | Name for an OpenMRS database                                             | `"openmrs"`                                               |
 | `openmrs-backend.galera.db.user`                             | Name for a DB user                                                       | `"openmrs"`                                               |
 | `openmrs-backend.galera.db.password`                         | Name for a DB user's password                                            | `"OpenMRS123"`                                            |
+| `openmrs-backend.infinispan.jgroups_cfg`                     | Name of the Jgroup Config file                                           | `"default-configs/default-jgroups-kubernetes.xml"`        |
+| `openmrs-backend.infinispan.enabled`                         | Create infinispan cluster with 2 nodes (default)                         | `"true"`                                                  |
+| `openmrs-backend.infinispan.deploy.replicas`                 | Total number of nodes for infinispan cluster                             | `"2"`                                                     |
 
 See [MariaDB](https://github.com/bitnami/charts/blob/main/bitnami/mariadb/README.md) helm chart for other MariaDB parameters.
+
+See [Infinispan](https://github.com/infinispan/infinispan-helm-charts/blob/main/README.md) helm chart for other Infinispan parameters.
 
 ### Terraform and AWS
 

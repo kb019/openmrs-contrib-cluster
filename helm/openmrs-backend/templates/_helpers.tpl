@@ -60,3 +60,28 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "infinispan-chart.name" -}}
+{{- default .Release.Name .Values.infinispan.deploy.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{- define "openmrs.default.serverOptions" -}}
+{{- .Values.defaultOmrsServerOpts }}
+{{- end }}
+
+{{- define "infinispan.cache.jgroups.dnsQuery" -}}
+{{- printf "%s-ping.%s.svc.%s" (include "infinispan-chart.name" .) .Release.Namespace .Values.infinispan.deploy.clusterDomain }}
+{{- end }}
+
+{{- define "infinispan.cache.jgroups_cfg" -}}
+{{- .Values.infinispan.jgroups_cfg }}
+{{- end }}
+
+
+{{- define "infinispan.cache.args" }}
+{{- printf "-Djgroups.dns.query=%s -Dhibernate.cache.infinispan.jgroups_cfg=%s -Dcache.type=%s" (include "infinispan.cache.jgroups.dnsQuery" .) (include "infinispan.cache.jgroups_cfg" .) "cluster" }}
+{{- end }}
+
+{{- define "openmrs.serverOptions" -}}
+{{- printf "%s %s" (include "openmrs.default.serverOptions" .) (include "infinispan.cache.args" .) }}
+{{- end }}

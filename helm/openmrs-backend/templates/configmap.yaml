@@ -16,4 +16,8 @@ data:
   OMRS_DB_NAME: {{ .Values.galera.db.name | quote }}
   OMRS_DB_HOSTNAME: "{{ .Release.Name }}-galera"
   {{- end }}
-
+  {{- if .Values.infinispan.enabled }}
+  OMRS_JAVA_SERVER_OPTS: {{ include "openmrs.serverOptions" . }}
+  {{- else }}
+  OMRS_JAVA_SERVER_OPTS: {{ include "openmrs.default.serverOptions" . }}
+  {{- end }}
